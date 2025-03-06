@@ -1,0 +1,22 @@
+﻿using Application.Inrefaces;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Context;
+using Persistence.Repository;
+
+namespace API.Configurations
+{
+    public static class PersistenceConfigurations
+    {
+        public static WebApplicationBuilder AddPersistence(this WebApplicationBuilder builder)
+        {
+            // all configurations for persistence library should be there
+            builder.Services.AddDbContext<DataBaseContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddSingleton<IDbContextFactory, DataBaseContextFactory>();
+            builder.Services.AddTransient<IPowerUnitRepository, PowerUnitRepository>();
+
+            return builder;
+        }
+    }
+}
