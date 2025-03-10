@@ -11,10 +11,10 @@ namespace Domain.DTO
         public long Id { get; set; }
         public long StationId { get; set; }
         public string Name { get; set; } = default!;
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime DateOfNextService { get; set; }
         public long CountSensor { get; set; }
 
-        public Station Station { get; set; } = new Station();
+        public Station Station { get; set; }
     }
 }

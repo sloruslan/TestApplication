@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTO.Pagination;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Station
 {
-    public class FilteringStationRequest
+    public class FilteringStationRequest : PageModel
     {
         [BindProperty(Name = "id")]
         public long? Id { get; set; }
@@ -17,5 +18,8 @@ namespace Application.DTO.Station
 
         [BindProperty(Name = "created_at")]
         public DateTime? CreatedAt { get; set; }
+
+        [BindProperty(Name = "sort")]
+        public SortModel? Sort { get; set; } = new SortModel();
     }
 }

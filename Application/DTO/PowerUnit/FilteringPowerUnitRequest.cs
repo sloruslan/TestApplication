@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTO.Pagination;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.PowerUnit
 {
-    public class FilteringPowerUnitRequest
+    public class FilteringPowerUnitRequest : PageModel
     {
         [BindProperty(Name = "id")]
         public long? Id { get; set; }
@@ -26,5 +27,8 @@ namespace Application.DTO.PowerUnit
 
         [BindProperty(Name = "count_sensor")]
         public long? CountSensor { get; set; }
+
+        [BindProperty(Name = "sort")]
+        public SortModel? Sort { get; set; } = new SortModel();
     }
 }

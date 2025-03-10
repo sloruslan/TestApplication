@@ -11,10 +11,10 @@ namespace Application.Inrefaces
 {
     public interface IStationRepository
     {
-        Task<Station> CreateAsync(CreateStationRequest request);
+        Task<StationResponse> CreateAsync(CreateStationRequest request);
         Task DeleteAsync(long id);
-        Task<IEnumerable<Station>> GetAsync(FilteringStationRequest filteringModel);
-        Task<Station> GetAsync(long id);
-        Task<Station> UpdateAsync(long id, UpdateStationRequest request);
+        Task<IEnumerable<StationResponse>> GetAsync(FilteringStationRequest filteringModel);
+        Task<StationResponse> GetAsync(long id);
+        Task<StationResponse> UpdateAsync(long id, UpdateStationRequest request);
     }
 }

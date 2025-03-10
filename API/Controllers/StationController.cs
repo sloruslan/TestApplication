@@ -8,30 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [ApiController, ApiVersion("1.0")]
-    [Route("/api/v{version:apiVersion}/power-unit")]
-    public class PowerUnitController : ControllerBase
+    [Route("/api/v{version:apiVersion}/station")]
+    public class StationController : ControllerBase
     {
-        private readonly IPowerUnitRepository _repository;
+        private readonly IStationRepository _repository;
 
-        public PowerUnitController(IPowerUnitRepository repository)
+        public StationController(IStationRepository repository)
         {
             _repository = repository;
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(PowerUnitResponse), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([FromBody] CreatePowerUnitRequest request)
-        {
-            var result = await _repository.CreateAsync(request);
-            return StatusCode(StatusCodes.Status201Created, result);
-        }
-
         [HttpGet("{id:long}")]
-        [ProducesResponseType(typeof(PowerUnitResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StationResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -42,25 +30,38 @@ namespace API.Controllers
             return Ok(result);
         }
 
+       
         [HttpGet()]
-        [ProducesResponseType(typeof(IEnumerable<PowerUnitResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<StationResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get([FromQuery] FilteringPowerUnitRequest request)
+        public async Task<IActionResult> Get([FromQuery] FilteringStationRequest request)
         {
             var result = await _repository.GetAsync(request);
             return Ok(result);
         }
 
-        [HttpPut("{id:long}")]
-        [ProducesResponseType(typeof(PowerUnitResponse), StatusCodes.Status200OK)]
+        [HttpPost]
+        [ProducesResponseType(typeof(StationResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update(long id, [FromBody] UpdatePowerUnitRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateStationRequest request)
+        {
+            var result = await _repository.CreateAsync(request);
+            return StatusCode(StatusCodes.Status201Created, result);
+        }
+
+        [HttpPut("{id:long}")]
+        [ProducesResponseType(typeof(StationResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateStationRequest request)
         {
             var result = await _repository.UpdateAsync(id, request);
             return StatusCode(StatusCodes.Status200OK, result);

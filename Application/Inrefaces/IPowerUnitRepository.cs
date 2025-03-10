@@ -10,10 +10,10 @@ namespace Application.Inrefaces
 {
     public interface IPowerUnitRepository
     {
-        Task<PowerUnit> CreateAsync(CreatePowerUnitRequest request);
+        Task<PowerUnitResponse> CreateAsync(CreatePowerUnitRequest request);
         Task DeleteAsync(long id);
-        Task<IEnumerable<PowerUnit>> GetAsync(FilteringPowerUnitRequest filteringModel);
-        Task<PowerUnit> GetAsync(long id);
-        Task<PowerUnit> UpdateAsync(long id, UpdatePowerUnitRequest request);
+        Task<IEnumerable<PowerUnitResponse>> GetAsync(FilteringPowerUnitRequest filteringModel);
+        Task<PowerUnitResponse> GetAsync(long id);
+        Task<PowerUnitResponse> UpdateAsync(long id, UpdatePowerUnitRequest request);
     }
 }

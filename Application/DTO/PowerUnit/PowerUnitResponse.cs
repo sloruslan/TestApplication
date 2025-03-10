@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.DTO
+namespace Application.DTO.PowerUnit
 {
-    public class Station
+    public class PowerUnitResponse
     {
         public long Id { get; set; }
+        public long StationId { get; set; }
         public string Name { get; set; } = default!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public List<PowerUnit> PowerUnits { get; set; } = new();
+        public DateTime DateOfNextService { get; set; }
+        public long CountSensor { get; set; }
     }
 }
