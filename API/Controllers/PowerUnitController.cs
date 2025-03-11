@@ -10,7 +10,6 @@ namespace API.Controllers
 {
     [ApiController, ApiVersion("1.0")]
     [Route("/api/v{version:apiVersion}/power-unit")]
-    [Authorize]
     public class PowerUnitController : ControllerBase
     {
         private readonly IPowerUnitRepository _repository;
@@ -21,6 +20,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(PowerUnitResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -58,6 +58,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id:long}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(PowerUnitResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -70,6 +71,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id:long}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

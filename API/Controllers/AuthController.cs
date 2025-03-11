@@ -21,10 +21,10 @@ namespace API.Controllers
         public IActionResult Login([FromBody] LoginRequest request)
         {
             // Тут можно сделать реальную проверку в БД
-            if (request.Username == "string" && request.Password == "string")
+            if ((request.Username == "string" || request.Username == "user") && request.Password == "string")
             {
                 var token = _jwtService.GenerateToken(request.Username);
-                return Ok(new { Token = token });
+                return Ok(token);
             }
 
             return Unauthorized("Invalid username or password");

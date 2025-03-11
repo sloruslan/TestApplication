@@ -1,5 +1,6 @@
 using API.Auth;
 using API.Configurations;
+using API.Middleware;
 using Application.Inrefaces;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,8 +44,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers().RequireAuthorization();
 
