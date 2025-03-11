@@ -16,10 +16,8 @@ namespace API.Service
             _config = config;
         }
 
-        public string GenerateToken(string username)
+        public string GenerateToken(string username, string role)
         {
-            string role = username == "string" ? "Admin" : "User";
-
             var claims = new List<Claim>
                 {
                 new Claim(ClaimTypes.Name, username),

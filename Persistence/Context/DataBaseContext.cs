@@ -1,4 +1,5 @@
-﻿using Domain.DTO;
+﻿using Domain;
+using Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,37 @@ namespace Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.Entity<Role>().HasData(
+                new Role { Id = 1, Name = "Admin" },
+                new Role { Id = 2, Name = "User" }
+            );
+
+
+            modelBuilder.Entity<User>().HasData(
+                new User 
+                { 
+                    Id = 1, 
+                    FirstName = "Ivan", 
+                    SecondName = "Ivanov",
+                    Patronymic = "Ivanovich", 
+                    Email = "admin@mail.ru", 
+                    Password = PasswordHasher.HashPassword("admin"),
+                    RoleId = 1 
+                },
+                new User 
+                {
+                    Id = 2,
+                    FirstName = "Semen",
+                    SecondName = "Semenov",
+                    Patronymic = "Semenovich",
+                    Email = "user@mail.ru",
+                    Password = PasswordHasher.HashPassword("user"),
+                    RoleId = 2
+                }
+            );
+
+
             #region Station
 
             modelBuilder.Entity<Station>()
@@ -133,6 +165,11 @@ namespace Persistence.Context
             modelBuilder.Entity<User>()
                .Property(e => e.Email)
                .HasColumnName("email");
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role) 
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId);
 
             #endregion
         }

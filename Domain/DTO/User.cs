@@ -13,5 +13,10 @@ namespace Domain.DTO
         public string SecondName { get; set; } = default!;
         public string Patronymic { get; set; } = default!;
         public string Email { get; set; } = default!;
+        public string Password { get; set; } = default!;
+
+        public long RoleId { get; set; }
+
+        public Role Role { get; set; } = default!;
     }
 }

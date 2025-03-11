@@ -27,7 +27,7 @@ namespace Persistence.Repository
 
         public async Task<StationResponse> CreateAsync(CreateStationRequest request)
         {
-            await using var context = _dbContextFactory.CreateDbContext();
+            await using (var context = _dbContextFactory.CreateDbContext())
             {
                 var newEntity = _mapper.Map<Station>(request);
                 context.Station.Add(newEntity);

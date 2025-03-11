@@ -16,6 +16,7 @@ namespace API.Configurations
             builder.Services.AddSingleton<IDbContextFactory, DataBaseContextFactory>();
             builder.Services.AddTransient<IPowerUnitRepository, PowerUnitRepository>();
             builder.Services.AddTransient<IStationRepository, StationRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             return builder;
         }

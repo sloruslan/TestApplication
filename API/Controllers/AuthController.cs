@@ -1,5 +1,6 @@
 ﻿using API.Service;
 using Application.DTO.Auth;
+using Application.Inrefaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,23 +12,28 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly JwtService _jwtService;
+        private readonly IUserRepository _userRepository;
 
-        public AuthController(JwtService jwtService)
+        public AuthController(JwtService jwtService, IUserRepository userRepository)
         {
             _jwtService = jwtService;
+            _userRepository = userRepository;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            // Тут можно сделать реальную проверку в БД
-            if ((request.Username == "string" || request.Username == "user") && request.Password == "string")
-            {
-                var token = _jwtService.GenerateToken(request.Username);
-                return Ok(token);
-            }
+            var user = await _userRepository.GetByEmailAsync(request.Email);
 
-            return Unauthorized("Invalid username or password");
+            if (user != null)
+            {
+                if (_userRepository.CheckPasswordAsync(user, request.Password))
+                {
+                    var token = _jwtService.GenerateToken(request.Email, user.Role.Name);
+                    return Ok(token);
+                }
+            }
+            return BadRequest("Invalid username or password");
         }
     }
 }
