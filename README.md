@@ -7,3 +7,6 @@ password: admin
 Обычный пользователь:
 login: user@mail.ru
 password: user
+
+
+В папке db лежит скрипт для разворачивания БД на всякий случай
