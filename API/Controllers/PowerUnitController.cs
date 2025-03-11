@@ -3,12 +3,14 @@ using Application.DTO.Station;
 using Application.Inrefaces;
 using Asp.Versioning;
 using Domain.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController, ApiVersion("1.0")]
     [Route("/api/v{version:apiVersion}/power-unit")]
+    [Authorize]
     public class PowerUnitController : ControllerBase
     {
         private readonly IPowerUnitRepository _repository;
@@ -42,6 +44,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        
         [HttpGet()]
         [ProducesResponseType(typeof(IEnumerable<PowerUnitResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
